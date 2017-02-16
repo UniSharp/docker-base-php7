@@ -32,7 +32,9 @@ RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
 # phpunit
-RUN composer require --dev phpunit/phpunit ^6.0
+RUN mkdir -p /usr/local/bin
+RUN curl -L https://phar.phpunit.de/phpunit-6.0.phar -o /usr/local/bin/phpunit
+RUN chmod +x /usr/local/bin/phpunit
 
 # ssh
 RUN mkdir -p ~/.ssh
