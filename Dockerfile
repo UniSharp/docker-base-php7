@@ -27,6 +27,14 @@ RUN apt-get install -y --force-yes php7.0-mongo mongodb-clients
 RUN curl -sL https://deb.nodesource.com/setup | bash -
 RUN apt-get install -y --force-yes nodejs
 
+
+# yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update
+RUN apt-get install yarn
+
+
 # composer
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
@@ -35,6 +43,7 @@ RUN mv composer.phar /usr/local/bin/composer
 RUN mkdir -p /usr/local/bin
 RUN curl -L https://phar.phpunit.de/phpunit-6.0.phar -o /usr/local/bin/phpunit
 RUN chmod +x /usr/local/bin/phpunit
+
 
 # ssh
 RUN mkdir -p ~/.ssh
