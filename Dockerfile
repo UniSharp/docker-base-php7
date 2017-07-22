@@ -11,8 +11,12 @@ RUN apt-get update
 # base env
 RUN apt-get install -y --force-yes git curl make telnet
 
+# tools
+RUN apt-get install -y --force-yes tig htop
+
 # PHP
 RUN apt-get install -y --force-yes php7.1-sqlite php7.1-curl php7.1-gd php7.1-mcrypt php7.1-intl php7.1-mbstring
+
 
 # locales
 RUN apt-get install -y locales
