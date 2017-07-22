@@ -1,4 +1,4 @@
-FROM phpdockerio/php7-fpm
+FROM phpdockerio/php71-fpm
 
 ENV HOME /root
 COPY . /build
@@ -12,27 +12,33 @@ RUN apt-get update
 RUN apt-get install -y --force-yes git curl make telnet
 
 # PHP
-RUN apt-get install -y --force-yes php7.0-sqlite php7.0-curl php7.0-gd php7.0-mcrypt php7.0-intl php7.0-mbstring
+RUN apt-get install -y --force-yes php7.1-sqlite php7.1-curl php7.1-gd php7.1-mcrypt php7.1-intl php7.1-mbstring
 
 #RUN ln -s /etc/php5/mods-available/mcrypt.ini /etc/php5/cli/conf.d/20-mcrypt.ini
 
 # MySQL
-RUN apt-get install -y --force-yes mysql-client php7.0-mysql
+RUN apt-get install -y --force-yes mysql-client php7.1-mysql
 
 # MongoDB
-RUN apt-get install -y --force-yes php7.0-mongo mongodb-clients
+RUN apt-get install -y --force-yes php7.1-mongo mongodb-clients
 
+# nvm
+ENV NVM_DIR /usr/local/nvm
+ENV NODE_VERSION v8
 
-# nodejs
-RUN curl -sL https://deb.nodesource.com/setup | bash -
-RUN apt-get install -y --force-yes nodejs
-
+# Install nvm with node and npm
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash \
+    && source $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default \
+    && npm install yarn
 
 # yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update
-RUN apt-get install yarn
+# RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+# RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+# RUN apt-get update
+# RUN apt-get install yarn
 
 
 # composer
