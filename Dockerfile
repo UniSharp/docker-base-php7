@@ -14,6 +14,15 @@ RUN apt-get install -y --force-yes git curl make telnet
 # PHP
 RUN apt-get install -y --force-yes php7.1-sqlite php7.1-curl php7.1-gd php7.1-mcrypt php7.1-intl php7.1-mbstring
 
+# locales
+RUN apt-get install -y locales
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    dpkg-reconfigure --frontend=noninteractive locales && \
+    update-locale LANG=en_US.UTF-8
+ENV LANG en_US.UTF-8
+
+
+
 #RUN ln -s /etc/php5/mods-available/mcrypt.ini /etc/php5/cli/conf.d/20-mcrypt.ini
 
 # MySQL
