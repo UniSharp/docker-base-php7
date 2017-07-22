@@ -77,4 +77,4 @@ RUN mkdir -p /data/public && echo "<?php phpinfo();" > /data/public/index.php
 VOLUME /data
 
 WORKDIR /data
-CMD ["/sbin/my_init"]
+CMD echo "hello world!"
