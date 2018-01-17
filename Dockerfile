@@ -10,14 +10,15 @@ ENV NODE_VERSION v8
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh \
     && apt-get update \
-    && apt-get install -y --force-yes git curl make telnet tig htop \
-    && apt-get install -y --force-yes php7.1-sqlite php7.1-curl php7.1-gd php7.1-mcrypt php7.1-intl php7.1-mbstring \
+    && apt-get install -y git curl make telnet tig htop \
+    && apt-get install -y php7.1-sqlite php7.1-curl php7.1-gd php7.1-mcrypt php7.1-intl php7.1-mbstring \
     && apt-get install -y locales \
     && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
     && dpkg-reconfigure --frontend=noninteractive locales \
     && update-locale LANG=en_US.UTF-8 \
-    && apt-get install -y --force-yes mysql-client php7.1-mysql \
-    && apt-get install -y --force-yes php7.1-mongo mongodb-clients
+    && apt-get install -y mysql-client php7.1-mysql \
+    && apt-get install -y php7.1-mongo mongodb-clients
+
 
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
 RUN source $NVM_DIR/nvm.sh \
